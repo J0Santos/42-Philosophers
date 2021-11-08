@@ -6,7 +6,7 @@
 /*   By: josantos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 16:39:19 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/05 20:11:35 by josantos         ###   ########.fr       */
+/*   Updated: 2021/11/08 17:34:47 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,28 +17,37 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-typedef enum s_state
+typedef struct s_philo
 {
-	Sleeped,
-	Ate,
-	Died,
-	Thought,
-}	t_state;
+	int number;
+	int	death;
+	int	eat;
+	int	sleep;
+}	t_philo;
 
 typedef struct s_data
 {
-	int	*num_philos;
-	int	*num_forks;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	eat_limit;
+	t_philo	*philo_num;
+	int		*num_forks;
+	int		eat_limit;
 }	t_data;
 
-void	argument_check(int argc, char **argv);
-void	error_message(int type, char *message);
+/*
+ * Util functions
+ */
+
+size_t	ft_strlen(const char *str);
+long long	ft_atoll(char *str);
 int		is_digit(char *str);
 int		is_int(char	*str);
 int		is_pos(char *str);
+
+/*
+ * main functions
+ */
+
+void	argument_check(int argc, char **argv);
+void	init_data(int argc, char **argv);
+void	error_message(int type, char *message);
 
 #endif

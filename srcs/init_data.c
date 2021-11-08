@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_messages.c                                   :+:      :+:    :+:   */
+/*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: josantos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/05 18:53:57 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/05 20:23:52 by josantos         ###   ########.fr       */
+/*   Created: 2021/11/08 17:16:06 by josantos          #+#    #+#             */
+/*   Updated: 2021/11/08 17:46:28 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	error_message(int type, char *message)
+void	init_data(int argc, char **argv)
 {
-	if (type == 1)
-	{
-		printf("%s\n", message);
-		printf("Allowed arguments must be:\n");
-		printf("\t- Number of philosophers;\n");
-		printf("\t- Time to die (milliseconds);\n");
-		printf("\t- Time to eat (milliseconds);\n");
-		printf("\t- Time to sleep (milliseconds);\n");
-		printf("\t- (optional) Number of times each philosopher must eat;\n");
-	}
-	exit(EXIT_FAILURE);
+	t_philo philo;
+	t_data	data;
+	int i;
+	int j;
+
+	i = 0;
+	j = ft_atoll(argv[1]);
+
+	philo.death = ft_atoll(argv[2]);
+	philo.eat = ft_atoll(argv[3]);
+	philo.sleep = ft_atoll(argv[4]);
+	if (argc == 6)
+		data.eat_limit = ft_atoll(argv[5]);
 }

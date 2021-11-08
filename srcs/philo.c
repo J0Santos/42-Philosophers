@@ -6,7 +6,7 @@
 /*   By: josantos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 16:43:08 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/05 20:15:34 by josantos         ###   ########.fr       */
+/*   Updated: 2021/11/08 17:46:35 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 int	main(int argc, char **argv)
 {
 	argument_check(argc, argv);
-	init_data(argv);
+	init_data(argc, argv);
 }

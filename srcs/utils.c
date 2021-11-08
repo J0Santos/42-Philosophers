@@ -6,13 +6,13 @@
 /*   By: josantos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 19:16:43 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/05 20:11:46 by josantos         ###   ########.fr       */
+/*   Updated: 2021/11/08 17:46:32 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static size_t	ft_strlen(const char *str)
+size_t	ft_strlen(const char *str)
 {
 	size_t	a;
 
@@ -22,7 +22,7 @@ static size_t	ft_strlen(const char *str)
 	return (a);
 }
 
-static long long	ft_atoll(char *str)
+long long	ft_atoll(char *str)
 {
 	long long			a;
 	long long			b;
