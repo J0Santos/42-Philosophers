@@ -14,14 +14,12 @@
 
 void	init_data(int argc, char **argv)
 {
-	t_philo philo;
+	t_philo	philo;
 	t_data	data;
 	int i;
-	int j;
 
 	i = 0;
-	j = ft_atoll(argv[1]);
-
+	init_philo()
 	philo.death = ft_atoll(argv[2]);
 	philo.eat = ft_atoll(argv[3]);
 	philo.sleep = ft_atoll(argv[4]);

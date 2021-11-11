@@ -6,7 +6,7 @@
 /*   By: josantos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 16:39:19 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/08 17:34:47 by josantos         ###   ########.fr       */
+/*   Updated: 2021/11/10 17:00:44 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,25 @@
 # include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <time.h>
+
+typedef long long t_time
 
 typedef struct s_philo
 {
-	int number;
-	int	death;
-	int	eat;
-	int	sleep;
+	int				number;
+	t_time			time2die;
+	t_time			time2eat;
+	t_time			time2sleep;
+	int				times_ate;
+	pthread_t	thread;
 }	t_philo;
 
 typedef struct s_data
 {
-	t_philo	*philo_num;
-	int		*num_forks;
-	int		eat_limit;
+	t_philo			*philo;
+	pthread_mutex_t	*forks;
+	int				eat_limit;
 }	t_data;
 
 /*

@@ -31,5 +31,4 @@ void	argument_check(int argc, char **argv)
 			error_message(1, "Arguments can not be negative\n");
 		i++;
 	}
-
 }
