@@ -24,5 +24,7 @@ void	error_message(int type, char *message)
 		printf("\t- Time to sleep (milliseconds);\n");
 		printf("\t- (optional) Number of times each philosopher must eat;\n");
 	}
+	else
+		printf("%s\n", message);
 	exit(EXIT_FAILURE);
 }
