@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/05 16:43:08 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/13 15:54:29 by josantos         ###   ########.fr       */
+/*   Created: 2021/11/13 14:04:13 by josantos          #+#    #+#             */
+/*   Updated: 2021/11/13 17:29:20 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+void    malloc_thread(t_control *data)
 {
-	t_philo		*philo;
-	t_control	*data;
-	int 		i;
+    data->thread = malloc(sizeof(pthread_t) * data->n_philos);
+    if (!data->thread)
+        error_message(2, "Malloc error");
+}
 
-	argument_check(argc, argv);
-	data = init_data(argc, argv);
-	i = 0;
-	
+void    init_thread(t_control *data, t_philo *philo)
+{
+    int i;
+    
+    i = philo->id - 1;
+    if (pthread_create(&(data->thread[i]), NULL, &routine, philo) != 0)
+        
+}

@@ -6,7 +6,7 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:02:52 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/12 16:07:53 by josantos         ###   ########.fr       */
+/*   Updated: 2021/11/13 17:48:25 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@
 
 # define TRUE 1
 # define FALSE 0
+
+# define MALLOC_ERROR 11
+# define MUTEX_ERROR 12
+# define THREAD_ERROR 13
+# define ARGS_ERROR 14
 
 typedef long long	t_time;
 
@@ -42,14 +47,14 @@ typedef struct s_control
 	t_time		time2sleep;
 	long long	eat_limit;
 	t_mutex		*fork;
-	t_mutex		print;
+	t_mutex		*print;
+	pthread_t	thread;
 }	t_control;
 
 typedef struct s_philo
 {
 	t_control		*data;
 	int				id;
-	pthread_t		thread;
 	t_state			state;
 	t_time			last_meal;
 	int				times_ate;
@@ -71,7 +76,15 @@ int			is_pos(char *str);
  */
 
 void		argument_check(int argc, char **argv);
-t_control	*init_data(int argc, char **argv);
+
 void		error_message(int type, char *message);
+int			check_values(t_control *data);
+
+/*
+*Init Functions
+*/
+
+t_control	*init_data(int argc, char **argv);
+void		init_mutex(t_control *data);
 
 #endif

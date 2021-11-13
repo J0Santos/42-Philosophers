@@ -6,7 +6,7 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:02:47 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/12 16:10:23 by josantos         ###   ########.fr       */
+/*   Updated: 2021/11/13 17:02:29 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,27 @@ t_control *init_data(int argc, char **argv)
 		data->eat_limit = ft_atoll(argv[5]);
 	else
 		data->eat_limit = -1;
+	if (check_values(data) != 0)
+		error_message(1, "\nInsert values again\n");
 	init_mutex(data);
+	malloc_thread(data);
 	return (data);
 }
 
-t_philo	*init_philo(int argc, char **argv)
+t_philo	*init_philo(t_control *data)
 {
-	t_control	*philo;
-	
+	t_philo	*philo;
+	static int	i;
 
-	philo = 
+	philo = malloc(sizeof(t_philo));
+	if (!philo)
+		error_message(2, "Malloc error\n");
+	philo->data = &data;
+	i = 0;
+	philo->id = ++i;
+	philo->state = 3;
+	philo->last_meal = 0;
+	philo->times_ate = 0;
+	philo->alive = 1;
+	init_thread(data, philo);
 }
