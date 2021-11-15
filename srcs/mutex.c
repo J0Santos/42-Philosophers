@@ -6,7 +6,7 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:02:34 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/13 18:03:17 by josantos         ###   ########.fr       */
+/*   Updated: 2021/11/15 18:27:35 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void destroy_mutexes(t_control *data)
     
     i = 0;
     while (i < data->n_philos)
-        pthread_mutex_destroy(&(data->fork[i]));
+        pthread_mutex_destroy(&(data->fork[i++]));
  //   pthread_mutex_destroy(&(data->print));
  //   pthread_mutex_destroy(&(data->dead));
 }

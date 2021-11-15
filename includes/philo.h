@@ -6,7 +6,7 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:02:52 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/13 17:48:25 by josantos         ###   ########.fr       */
+/*   Updated: 2021/11/15 18:17:25 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@
 # define TRUE 1
 # define FALSE 0
 
+# define ERROR 10
 # define MALLOC_ERROR 11
 # define MUTEX_ERROR 12
 # define THREAD_ERROR 13
 # define ARGS_ERROR 14
+# define FINISHED 15
 
 typedef long long	t_time;
 
@@ -48,7 +50,7 @@ typedef struct s_control
 	long long	eat_limit;
 	t_mutex		*fork;
 	t_mutex		*print;
-	pthread_t	thread;
+	pthread_t	*thread;
 }	t_control;
 
 typedef struct s_philo
@@ -62,7 +64,7 @@ typedef struct s_philo
 }	t_philo;
 
 /*
- * Util functions
+ * Util
  */
 
 size_t		ft_strlen(const char *str);
@@ -72,19 +74,30 @@ int			is_int(char	*str);
 int			is_pos(char *str);
 
 /*
- * main functions
+ * Main
  */
 
 void		argument_check(int argc, char **argv);
-
 void		error_message(int type, char *message);
 int			check_values(t_control *data);
+void		exit_program(t_control *data, t_philo *philo, int type);
+void		destroy_mutexes(t_control *data);
 
 /*
-*Init Functions
+* Threads
+*/
+
+void		malloc_thread(t_control *data);
+void		init_thread(t_control *data, t_philo *philo);
+void		*routine(void *philo);
+
+/*
+*Init
 */
 
 t_control	*init_data(int argc, char **argv);
 void		init_mutex(t_control *data);
+t_philo		*init_philo(t_control *data);
+
 
 #endif

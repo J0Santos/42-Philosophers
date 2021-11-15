@@ -6,7 +6,7 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:02:47 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/13 17:02:29 by josantos         ###   ########.fr       */
+/*   Updated: 2021/11/15 18:22:03 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,13 @@ t_philo	*init_philo(t_control *data)
 	philo = malloc(sizeof(t_philo));
 	if (!philo)
 		error_message(2, "Malloc error\n");
-	philo->data = &data;
+	philo->data = data;
 	i = 0;
 	philo->id = ++i;
-	philo->state = 3;
+	philo->state = Thinking;
 	philo->last_meal = 0;
 	philo->times_ate = 0;
 	philo->alive = 1;
 	init_thread(data, philo);
+	return (philo);
 }
