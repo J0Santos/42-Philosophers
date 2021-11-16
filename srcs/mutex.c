@@ -6,7 +6,7 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:02:34 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/16 12:32:47 by josantos         ###   ########.fr       */
+/*   Updated: 2021/11/16 13:30:21 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void destroy_mutexes(t_control *data)
         pthread_mutex_destroy(&(data->fork[i]));
         i++;
     }
-    pthread_mutex_destroy(data->print);
+    pthread_mutex_destroy(&data->print);
  //   pthread_mutex_destroy(&(data->dead));
 }
 
@@ -39,12 +39,12 @@ void    init_mutex(t_control *data)
     {
         if (pthread_mutex_init(&(data->fork[i]), NULL) != 0)
         {
-            while (i-- >= 0)
-                pthread_mutex_destroy(&(data->fork[i]));
+            while (i >= 0)
+                pthread_mutex_destroy(&(data->fork[i--]));
             error_message(2, "Mutex error");
         }
         i++;
     }
-    if (pthread_mutex_init(data->print, NULL))
-        pthread_mutex_destroy(data->print);
+    if (pthread_mutex_init(&data->print, NULL))
+        pthread_mutex_destroy(&data->print);
 }

@@ -6,7 +6,7 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:02:52 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/16 12:31:51 by josantos         ###   ########.fr       */
+/*   Updated: 2021/11/16 13:28:33 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_control
 	t_time		time2sleep;
 	long long	eat_limit;
 	pthread_mutex_t		*fork;
-	pthread_mutex_t		*print;
+	pthread_mutex_t		print;
 	pthread_t	*thread;
 }	t_control;
 
