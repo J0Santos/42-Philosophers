@@ -6,7 +6,7 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:02:52 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/15 18:17:25 by josantos         ###   ########.fr       */
+/*   Updated: 2021/11/16 12:31:51 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@
 
 typedef long long	t_time;
 
-typedef pthread_mutex_t t_mutex;
-
 typedef int	t_bool;
 
 typedef enum e_state
@@ -48,8 +46,8 @@ typedef struct s_control
 	t_time		time2eat;
 	t_time		time2sleep;
 	long long	eat_limit;
-	t_mutex		*fork;
-	t_mutex		*print;
+	pthread_mutex_t		*fork;
+	pthread_mutex_t		*print;
 	pthread_t	*thread;
 }	t_control;
 

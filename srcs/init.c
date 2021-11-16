@@ -6,7 +6,7 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:02:47 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/15 18:22:03 by josantos         ###   ########.fr       */
+/*   Updated: 2021/11/16 12:29:06 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_control *init_data(int argc, char **argv)
 {
 	t_control *data;
 
-	data = malloc(sizeof(t_control));
+	data = (t_control *)malloc(sizeof(t_control));
 	if (!data)
 		error_message(2, "Malloc error\n");
 	data->n_philos = ft_atoll(argv[1]);
@@ -37,18 +37,22 @@ t_control *init_data(int argc, char **argv)
 t_philo	*init_philo(t_control *data)
 {
 	t_philo	*philo;
-	static int	i;
-
-	philo = malloc(sizeof(t_philo));
-	if (!philo)
-		error_message(2, "Malloc error\n");
-	philo->data = data;
+	int		i;
+	
 	i = 0;
-	philo->id = ++i;
-	philo->state = Thinking;
-	philo->last_meal = 0;
-	philo->times_ate = 0;
-	philo->alive = 1;
-	init_thread(data, philo);
+	while (i < data->n_philos)
+	{
+		philo = (t_philo *)malloc(sizeof(t_philo));
+		if (!philo)
+			error_message(2, "Malloc error\n");
+		philo->data = data;
+		philo->id = i + 1;
+		philo->state = Thinking;
+		philo->last_meal = 0;
+		philo->times_ate = 0;
+		philo->alive = 1;
+		init_thread(data, philo);
+		i++;
+	}
 	return (philo);
 }
