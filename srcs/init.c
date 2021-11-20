@@ -6,7 +6,7 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:02:47 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/16 13:23:14 by josantos         ###   ########.fr       */
+/*   Updated: 2021/11/19 12:23:53 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ t_philo	*init_philo(t_control *data)
 		philo->last_meal = 0;
 		philo->times_ate = 0;
 		philo->alive = 1;
-		init_thread(data, philo);
 		i++;
 	}
 	return (philo);
