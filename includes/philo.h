@@ -6,7 +6,7 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:02:52 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/16 13:28:33 by josantos         ###   ########.fr       */
+/*   Updated: 2021/11/23 18:30:58 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,86 +16,71 @@
 # include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <time.h>
+# include <sys/time.h>
+# include <stdbool.h>
 
-# define TRUE 1
-# define FALSE 0
-
-# define ERROR 10
+# define ARGS_ERROR 10
 # define MALLOC_ERROR 11
 # define MUTEX_ERROR 12
 # define THREAD_ERROR 13
-# define ARGS_ERROR 14
-# define FINISHED 15
+# define FINISHED 14
 
-typedef long long	t_time;
 
-typedef int	t_bool;
+# define FORK "has taken a fork\n"
+# define EAT "is eating\n"
+# define SLEEP "is sleeping\n"
+# define THINK "is thinking\n"
+# define DEAD "died\n"
 
-typedef enum e_state
-{
-	Sleeping,
-	Eating,
-	Thinking,
-}	t_state;
-
-typedef struct s_control
-{
-	long long	n_philos;
-	t_time		time2die;
-	t_time		time2eat;
-	t_time		time2sleep;
-	long long	eat_limit;
-	pthread_mutex_t		*fork;
-	pthread_mutex_t		print;
-	pthread_t	*thread;
-}	t_control;
+typedef pthread_mutex_t t_mutex;
 
 typedef struct s_philo
 {
-	t_control		*data;
-	int				id;
-	t_state			state;
-	t_time			last_meal;
-	int				times_ate;
-	t_bool			alive;
+	int					id;
+	int					meal_count;
+	int					last_meal;
+	pthread_t			thread;
+	struct s_info		*info;
 }	t_philo;
 
-/*
- * Util
- */
+typedef struct s_info
+{
+	int					time2die;
+	int					time2eat;
+	int					time2sleep;
+	int					num_philos;
+	int					max_meals;
+	int					start_time;
+	t_mutex				*fork;
+	t_mutex				print;
+	bool				dead;
+	t_philo				*philo;
+}	t_info;
+
+/* Main Functions */
+
+t_info		*init_data(int argc, char **argv);
+
+/* Checker Functions */
+
+int			check_values(t_info *info);
+void		check_args(int argc, char **argv);
+
+/* Program Termination Functions */
+
+void		error_message(int type, char *message);
+void		exit_program(t_info *info);
+
+/* Time function */
+
+int			get_time(void);
+
+/* Util Functions */
 
 size_t		ft_strlen(const char *str);
 long long	ft_atoll(char *str);
 int			is_digit(char *str);
 int			is_int(char	*str);
 int			is_pos(char *str);
-
-/*
- * Main
- */
-
-void		argument_check(int argc, char **argv);
-void		error_message(int type, char *message);
-int			check_values(t_control *data);
-void		exit_program(t_control *data, t_philo *philo, int type);
-void		destroy_mutexes(t_control *data);
-
-/*
-* Threads
-*/
-
-void		malloc_thread(t_control *data);
-void		init_thread(t_control *data, t_philo *philo);
-void		*routine(void *philo);
-
-/*
-*Init
-*/
-
-t_control	*init_data(int argc, char **argv);
-void		init_mutex(t_control *data);
-t_philo		*init_philo(t_control *data);
-
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 19:06:27 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/13 18:06:02 by josantos         ###   ########.fr       */
+/*   Updated: 2021/11/23 12:12:12 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	argument_check(int argc, char **argv)
+void	check_args(int argc, char **argv)
 {
 	int i;
 
@@ -26,21 +26,21 @@ void	argument_check(int argc, char **argv)
 		if (is_digit(argv[i]) == 0)
 			error_message(ARGS_ERROR, "Given arguments are not digits!\n");
 		if (is_int(argv[i]) == 0)
-			error_message(ARGS_ERROR, "Given arguments are not integers!\n");
+			error_message(ARGS_ERROR, "Given arguments must be integers!\n");
 		if (is_pos(argv[i]) == 0)
-			error_message(ARGS_ERROR, "Arguments can't be negative!\n");
+			error_message(ARGS_ERROR, "Arguments have to be positive!\n");
 		i++;
 	}
 }
 
-int	check_values(t_control *data)
+int	check_values(t_info *info)
 {
-	if (data->n_philos <= 0)
+	if (info->num_philos <= 0)
 	{
-		printf("\nNumber of Philosophers has to be more than 0!\n");
+		printf("\nNumber of Philosophers must be more than 0!\n");
 		return (1);
 	}
-	if (data->time2die <= 0 || data->time2eat <= 0 || data->time2sleep <= 0)
+	if (info->time2die <= 0 || info->time2eat <= 0 || info->time2sleep <= 0)
 	{
 		printf("\nMandatory timers have to be more than 0!\n");
 		return (1);
