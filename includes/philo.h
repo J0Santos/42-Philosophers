@@ -6,7 +6,7 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:02:52 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/23 18:30:58 by josantos         ###   ########.fr       */
+/*   Updated: 2021/11/24 17:21:44 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,17 @@
 # include <sys/time.h>
 # include <stdbool.h>
 
+/* Types */
+
+# define SUCCESS 1
+# define FAILURE_INFO 2
+# define FAILURE_PHILO 3
 # define ARGS_ERROR 10
 # define MALLOC_ERROR 11
 # define MUTEX_ERROR 12
 # define THREAD_ERROR 13
-# define FINISHED 14
 
+/* Print State */
 
 # define FORK "has taken a fork\n"
 # define EAT "is eating\n"
@@ -57,9 +62,11 @@ typedef struct s_info
 	t_philo				*philo;
 }	t_info;
 
-/* Main Functions */
+/* Init Functions */
 
 t_info		*init_data(int argc, char **argv);
+void		init_mutexes(t_info *info);
+void		init_philo(t_info *info);
 
 /* Checker Functions */
 
@@ -69,7 +76,7 @@ void		check_args(int argc, char **argv);
 /* Program Termination Functions */
 
 void		error_message(int type, char *message);
-void		exit_program(t_info *info);
+void		exit_program(t_info *info, int type);
 
 /* Time function */
 
