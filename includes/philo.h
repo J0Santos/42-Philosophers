@@ -6,7 +6,7 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:02:52 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/24 17:21:44 by josantos         ###   ########.fr       */
+/*   Updated: 2021/11/25 17:38:58 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,18 @@
 
 typedef pthread_mutex_t t_mutex;
 
+typedef struct s_fork
+{
+	t_mutex	*mutex;
+	int		id;
+}	t_fork;
+
 typedef struct s_philo
 {
 	int					id;
 	int					meal_count;
 	int					last_meal;
-	pthread_t			thread;
+	int					curr_time;
 	struct s_info		*info;
 }	t_philo;
 
@@ -56,9 +62,10 @@ typedef struct s_info
 	int					num_philos;
 	int					max_meals;
 	int					start_time;
-	t_mutex				*fork;
-	t_mutex				print;
 	bool				dead;
+	t_fork				*fork;
+	t_mutex				print;
+	pthread_t			*thread;
 	t_philo				*philo;
 }	t_info;
 
@@ -77,6 +84,14 @@ void		check_args(int argc, char **argv);
 
 void		error_message(int type, char *message);
 void		exit_program(t_info *info, int type);
+
+/* Threads Functions */
+
+void	thread_create(t_info *info);
+
+/* Routine Functions */
+
+void	get_forks(t_philo *philo);
 
 /* Time function */
 
