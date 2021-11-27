@@ -6,7 +6,7 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:02:52 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/24 17:21:44 by josantos         ###   ########.fr       */
+/*   Updated: 2021/11/27 00:19:21 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <stdbool.h>
+# include <unistd.h>
+# include "color.h"
 
 /* Types */
 
-# define SUCCESS 1
-# define FAILURE_INFO 2
-# define FAILURE_PHILO 3
+# define SUCCESS 0
+# define FAILURE 1
 # define ARGS_ERROR 10
 # define MALLOC_ERROR 11
 # define MUTEX_ERROR 12
@@ -39,12 +40,19 @@
 
 typedef pthread_mutex_t t_mutex;
 
+typedef struct s_fork
+{
+	t_mutex	mutex;
+	int		id;
+}	t_fork;
+
 typedef struct s_philo
 {
 	int					id;
 	int					meal_count;
 	int					last_meal;
-	pthread_t			thread;
+	int					last_action;
+	int					time;
 	struct s_info		*info;
 }	t_philo;
 
@@ -56,31 +64,46 @@ typedef struct s_info
 	int					num_philos;
 	int					max_meals;
 	int					start_time;
-	t_mutex				*fork;
-	t_mutex				print;
 	bool				dead;
+	t_fork				*fork;
+	t_mutex				print;
+	pthread_t			*thread;
 	t_philo				*philo;
 }	t_info;
 
 /* Init Functions */
 
-t_info		*init_data(int argc, char **argv);
-void		init_mutexes(t_info *info);
-void		init_philo(t_info *info);
+int			init_data(t_info *info, int argc, char **argv);
+int			init_mutexes(t_info *info);
+int			init_philo(t_info *info);
 
 /* Checker Functions */
 
 int			check_values(t_info *info);
-void		check_args(int argc, char **argv);
+int			check_args(int argc, char **argv);
 
 /* Program Termination Functions */
 
-void		error_message(int type, char *message);
-void		exit_program(t_info *info, int type);
+int			error_message(int type, char *message);
+int			free_space_1(t_info *info, float phase);
+int			free_space_2(t_info *info, float phase);
+void		destroy_mutexes(t_info *info);
+void		finish_program(t_info *info);
 
-/* Time function */
+/* Threads Functions */
 
-int			get_time(void);
+int			thread_create(t_info *info);
+
+/* Routine Functions */
+
+int			one_philo(t_info *info);
+void		prepare4meal(t_philo *philo);
+int			ft_wait(t_philo *philo, int time);
+
+/* Time functions */
+
+int			get_time(t_philo *philo);
+int			current_time();
 
 /* Util Functions */
 

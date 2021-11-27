@@ -6,58 +6,70 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 17:58:03 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/24 17:42:15 by josantos         ###   ########.fr       */
+/*   Updated: 2021/11/27 00:21:12 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	init_mutexes(t_info *info)
-{
-	int i;
-		
-	i = 0;
-	info->fork = (t_mutex *)malloc(sizeof(t_mutex) * info->num_philos);
-	if (!info->fork)
-		exit_program(info, MALLOC_ERROR);
-	if (pthread_mutex_init(&info->print, NULL) != 0)
-		exit_program(info, FAILURE_INFO);
-	while (i < info->num_philos)
-		if (pthread_mutex_init(&info->fork[i++], NULL) != 0)
-		{
-			while (i >= 0)
-				pthread_mutex_destroy(&info->fork[i--]);
-			exit_program(info, FAILURE_INFO);
-		}
-}
-
-void	init_philo(t_info *info)
+int	init_philo(t_info *info)
 {
 	int		i;
 
-	info->philo = (t_philo *)malloc(sizeof(t_philo));
+	info->philo = (t_philo *)malloc(sizeof(t_philo) * info->num_philos);
 	if (!info->philo)
-		error_message(MALLOC_ERROR, "Malloc error - philo");
+		return (free_space_1(info, 2.0));
 	i = 0;
 	while (i < info->num_philos)
 	{
 		info->philo[i].id = i + 1;
 		info->philo[i].meal_count = 0;
-		info->philo[i].last_meal = 0;
+		info->philo[i].last_meal = info->start_time;
+		info->philo[i].time = current_time() - info->start_time;
 		info->philo[i].info = info;
-	//philo->thread = init_thread(info, philo);
+		info->philo[i].last_action = info->start_time;
 		i++;
 	}
+	return (SUCCESS);
 }
 
-t_info   *init_data(int argc, char **argv)
+int	init_forks(t_info *info)
 {
-	t_info *info;
 	int	i;
 
-	info = (t_info *)malloc(sizeof(t_info));
-	if (!info)
-		error_message(MALLOC_ERROR, "Malloc Error - info");
+	i = 0;
+	while (i < info->num_philos)
+	{
+		info->fork->id = 0;
+		if (pthread_mutex_init(&info->fork[i++].mutex, NULL) != 0)
+		{
+			while (i >= 0)
+			{
+				pthread_mutex_destroy(&info->fork[--i].mutex);
+			}
+			return (free_space_1(info, 1.5));
+		}
+	}
+	return (SUCCESS);
+}
+
+int	init_mutexes(t_info *info)
+{
+	info->fork = (t_fork *)malloc(sizeof(t_fork) * info->num_philos);
+	if (!info->fork)
+	{
+		free(info);
+		return (free_space_1(info, 1.0));
+	}
+	if (pthread_mutex_init(&info->print, NULL) != 0)
+		return (free_space_1(info, 1.3));
+	if (init_forks(info))
+		return(FAILURE);
+	return (SUCCESS);
+}
+
+int	init_data(t_info *info, int argc, char **argv)
+{
 	info->num_philos = ft_atoll(argv[1]);
 	info->time2die = ft_atoll(argv[2]);
 	info->time2eat = ft_atoll(argv[3]);
@@ -67,10 +79,12 @@ t_info   *init_data(int argc, char **argv)
 	else
 		info->max_meals = -1;
 	info->dead = 0;
-	info->start_time = get_time();
-	check_values(info);
-	i = 0;
-	//init_mutexes(info);
-	//init_philo(info);
-	return (info);
+	if (check_values(info))
+		return (error_message(ARGS_ERROR, "Please insert values again\n"));
+	if (init_mutexes(info))
+		return (FAILURE);
+	info->start_time = current_time();
+	if (init_philo(info))
+		return (FAILURE);
+	return (SUCCESS);
 }
