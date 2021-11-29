@@ -6,7 +6,7 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 14:07:44 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/27 00:27:52 by josantos         ###   ########.fr       */
+/*   Updated: 2021/11/29 16:15:22 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,17 @@
 void	*one_philo_routine(void *arg)
 {
 	t_philo	*philo;
+	int test;
 
 	philo = (t_philo *)arg;
 	printf("%dms\tPhilosopher %d was born\n", get_time(philo), philo->id);
 	printf("%dms\t%d %s", get_time(philo), philo->id, FORK);
-	//ft_wait(philo, philo->info->time2eat);
-	printf("%dms\t%d %s", get_time(philo), philo->id, DEAD);
+	test = current_time() - philo->last_action;
+	printf ("time:%d, la:%d, %d\n", current_time(), philo->last_action, test);
+	if (ft_wait(philo, philo->info->time2die))
+		printf("%dms\t%d %s", get_time(philo), philo->id, DEAD);
+	else
+		printf("shit...");
 	return (0);
 }
 

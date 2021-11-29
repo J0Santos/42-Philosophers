@@ -6,7 +6,7 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:02:52 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/27 00:27:02 by josantos         ###   ########.fr       */
+/*   Updated: 2021/11/29 16:15:58 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,13 @@ int			thread_create(t_info *info);
 
 int			one_philo(t_info *info);
 void		prepare4meal(t_philo *philo);
-int			ft_wait(t_philo *philo, int time);
+int			check_dead(t_philo *philo);
 
 /* Time functions */
 
 int			get_time(t_philo *philo);
 int			current_time();
+int			ft_wait(t_philo *philo, int action);
 
 /* Util Functions */
 

@@ -6,13 +6,22 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 16:39:46 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/27 00:27:46 by josantos         ###   ########.fr       */
+/*   Updated: 2021/11/29 16:17:58 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-
+int	check_dead(t_philo *philo)
+{
+	if (philo->info->time2die < current_time() - philo->last_meal)
+	{
+		philo->info->dead = 1;
+		return (1);
+	}
+	else
+		return (0);
+}
 
 void	prepare4meal(t_philo *philo)
 {

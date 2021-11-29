@@ -6,31 +6,22 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 18:14:26 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/27 00:27:17 by josantos         ###   ########.fr       */
+/*   Updated: 2021/11/29 16:14:37 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-/*
-int	ft_wait(t_philo *philo, int time)
+
+int	ft_wait(t_philo *philo, int action)
 {
-	int	i;
-	int diff;
-	
-	i = get_time();
-	while (get_time() - i <= time)
+	while (action > (current_time() - philo->last_action))
 	{
-		diff = philo->last_meal;
-		if (diff > philo->info->time2die)
-		{
-			pthread_mutex_lock(&philo->info->print);
-			philo->info->dead = 1;
-			break ;
-		}
+		if (check_dead(philo))
+			return (1);
 	}
 	return (0);
 }
-*/
+
 int	current_time(void)
 {
 	struct timeval	time;
@@ -41,5 +32,5 @@ int	current_time(void)
 
 int	get_time(t_philo *philo)
 {
-	return (philo->last_action - philo->info->start_time);
+	return (current_time() - philo->info->start_time);
 }
