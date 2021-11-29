@@ -22,10 +22,8 @@ void	*one_philo_routine(void *arg)
 	printf("%dms\t%d %s", get_time(philo), philo->id, FORK);
 	test = current_time() - philo->last_action;
 	printf ("time:%d, la:%d, %d\n", current_time(), philo->last_action, test);
-	if (ft_wait(philo, philo->info->time2die))
-		printf("%dms\t%d %s", get_time(philo), philo->id, DEAD);
-	else
-		printf("shit...");
+	test = ft_wait(philo, philo->info->time2die);
+	printf("%dms\t%d %s", get_time(philo), philo->id, DEAD);
 	return (0);
 }
 
