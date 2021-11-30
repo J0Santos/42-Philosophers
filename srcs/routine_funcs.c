@@ -6,42 +6,65 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 16:39:46 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/29 16:17:58 by josantos         ###   ########.fr       */
+/*   Updated: 2021/11/30 21:05:35 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	check_dead(t_philo *philo)
+int	grab_forks(t_philo *philo, t_fork *right_fork, t_fork *left_fork)
 {
-	if (philo->info->time2die < current_time() - philo->last_meal)
-	{
-		philo->info->dead = 1;
-		return (1);
-	}
-	else
-		return (0);
+	pthread_mutex_lock(&philo->info->fork[right_fork].mutex);
+	pthread_mutex_lock(&philo->info->fork[left_fork].mutex);
+	
+	return (0);
 }
 
-void	prepare4meal(t_philo *philo)
+int	philo_eat(t_philo *philo)
 {
-	if (philo->info->fork[philo->id - 1].id == 0 && philo->info->fork[philo->id].id == 0)
-	{
-		pthread_mutex_lock(&philo->info->fork[philo->id - 1].mutex);
-		pthread_mutex_lock(&philo->info->fork[philo->id].mutex);
-		philo->info->fork[philo->id - 1].id = philo->id;
-		philo->info->fork[philo->id].id = philo->id;
-		printf("%dms\t%d %s", philo->time, philo->id, FORK);
-		printf("%dms\t%d %s", philo->time, philo->id, FORK);
-		printf("%dms\t%d %s", philo->time, philo->id, EAT);
-		//ft_wait(philo, philo->info->time2eat);
-		
-	}
+	ft_print(philo, EAT);
+	if (ft_wait(philo, philo->info->time2eat))
+		return (1);
+	philo->last_meal = philo->last_action;
+	philo->info->fork[philo->id - 1].id = 0;
+	pthread_mutex_unlock(&philo->info->fork[philo->id - 1].mutex);
+	philo->info->fork[philo->id].id = 0;
+	pthread_mutex_unlock(&philo->info->fork[philo->id].mutex);
+	philo->has_forks = 0;
+	return (0);
+}
+
+int	philo_sleep(t_philo *philo)
+{
+	ft_print(philo, SLEEP);
+	if (ft_wait(philo, philo->info->time2sleep))
+		return (1);
+	return (0);
+}
+
+int	prepare4meal(t_philo *philo)
+{	
+	int		thinking;
+	t_fork	*right_fork;
+	t_fork	*left_fork;
 	
+	right_fork = &philo->info->fork[philo->id];
+	left_fork = &philo->info->fork[philo->id - 1];
+	thinking = 0;
+	while (philo->has_forks == 0)
+	{
+		if (grab_forks(philo, left_fork, right_fork))
+		{
+			philo->has_forks = 1;
+			return (0);
+		}
+		else if (philo->has_forks == 0 && thinking == 0)
+		{
+			ft_print(philo, THINK);
+			thinking = 1;
+		}
+		if (check_dead(philo))
+			return (1);
+	}
+	return (0);
 }
-/*
-void	check_dead(t_philo *philo)
-{
-	if (philo->info->time2die < )
-}
-*/
