@@ -6,12 +6,12 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 16:39:46 by josantos          #+#    #+#             */
-/*   Updated: 2021/12/02 18:48:42 by josantos         ###   ########.fr       */
+/*   Updated: 2021/12/02 20:08:47 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
- 
+
 void	get_forks(t_philo *philo, int first, int second)
 {
 	pthread_mutex_lock(&philo->info->fork[first].mutex);
@@ -32,8 +32,8 @@ void	get_forks(t_philo *philo, int first, int second)
 void	philo_eat(t_philo *philo, int first, int second)
 {
 	ft_print(philo, EAT);
-	ft_wait(philo, philo->info->time2eat);
 	philo->last_meal = philo->last_action;
+	ft_wait(philo, philo->info->time2eat);
 	philo->meal_count += 1;
 	philo->info->fork[first].used = false;
 	philo->info->fork[second].used = false;

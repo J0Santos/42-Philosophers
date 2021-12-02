@@ -6,7 +6,7 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 18:14:26 by josantos          #+#    #+#             */
-/*   Updated: 2021/12/02 18:10:04 by josantos         ###   ########.fr       */
+/*   Updated: 2021/12/02 20:16:55 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	ft_wait(t_philo *philo, int action)
 {
 	while (action > (current_time() - philo->last_action))
 	{
-		if (check_dead(philo))
+		check_dead(philo);
+		if (philo->info->dead == true)
 			break ;
 	}
 }
@@ -24,7 +25,7 @@ void	ft_wait(t_philo *philo, int action)
 int	current_time(void)
 {
 	struct timeval	time;
-	
+
 	gettimeofday(&time, NULL);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }

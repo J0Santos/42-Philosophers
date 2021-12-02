@@ -6,7 +6,7 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:02:52 by josantos          #+#    #+#             */
-/*   Updated: 2021/12/02 17:19:47 by josantos         ###   ########.fr       */
+/*   Updated: 2021/12/02 20:17:14 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define THINK "is thinking\n"
 # define DEAD "died\n"
 
-typedef pthread_mutex_t t_mutex;
+typedef pthread_mutex_t	t_mutex;
 
 typedef struct s_fork
 {
@@ -104,14 +104,14 @@ void		philo_sleep(t_philo *philo);
 
 /*Routine Util Functions */
 
-int			check_dead(t_philo *philo);
+void		check_dead(t_philo *philo);
 void		ft_print(t_philo *philo, char *state);
 void		create_forks(t_philo *philo, int *first, int *second);
 
 /* Time functions */
 
 int			get_time(t_philo *philo);
-int			current_time();
+int			current_time(void);
 void		ft_wait(t_philo *philo, int action);
 
 /* Util Functions */

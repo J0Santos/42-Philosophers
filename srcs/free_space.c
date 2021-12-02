@@ -6,7 +6,7 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 17:44:18 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/26 21:40:41 by josantos         ###   ########.fr       */
+/*   Updated: 2021/12/02 19:32:27 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ int	free_space_2(t_info *info, float phase)
 		else if (phase == 2.5)
 		{
 			free(info->philo);
-			return(error_message(MALLOC_ERROR, "Malloc Error - thread\n"));
+			return (error_message(MALLOC_ERROR, "Malloc Error - thread\n"));
 		}	
 	}
-	if  (phase >= 3.0)
+	if (phase >= 3.0)
 	{
 		free(info->philo);
 		free(info->thread);
 		if (phase == 3.0)
-			return(error_message(THREAD_ERROR, "Thread Error - create\n"));
+			return (error_message(THREAD_ERROR, "Thread Error - create\n"));
 		else
-			return(error_message(THREAD_ERROR, "Thread Error - join\n"));
+			return (error_message(THREAD_ERROR, "Thread Error - join\n"));
 	}
 	return (FAILURE);
 }
@@ -41,7 +41,7 @@ int	free_space_2(t_info *info, float phase)
 int	free_space_1(t_info *info, float phase)
 {
 	int	error;
-	
+
 	if (phase >= 1.0 && phase < 2.0)
 	{
 		if (phase == 1.0)

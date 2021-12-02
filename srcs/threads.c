@@ -6,7 +6,7 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 14:07:44 by josantos          #+#    #+#             */
-/*   Updated: 2021/12/02 18:48:48 by josantos         ###   ########.fr       */
+/*   Updated: 2021/12/02 20:18:29 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	*routine(void *arg)
 				get_forks(philo, first, second);
 			else
 				get_forks(philo, second, first);
+			check_dead(philo);
 		}
 		philo_eat(philo, first, second);
 		if (philo->meal_count == philo->info->max_meals)
@@ -51,11 +52,11 @@ void	*routine(void *arg)
 
 int	one_philo(t_info *info)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	if (pthread_create(&(info->thread[i]), NULL, &one_philo_routine, 
-							&info->philo[i]))
+	if (pthread_create(&(info->thread[i]), NULL, &one_philo_routine,
+			&info->philo[i]))
 		return (free_space_1(info, 3.0));
 	if (pthread_join(info->thread[i], NULL))
 		return (free_space_1(info, 3.5));
@@ -64,7 +65,7 @@ int	one_philo(t_info *info)
 
 int	thread_create(t_info *info)
 {
-	int i;
+	int	i;
 
 	info->thread = (pthread_t *)malloc(sizeof(pthread_t) * info->num_philos);
 	if (!info->thread)
@@ -77,8 +78,8 @@ int	thread_create(t_info *info)
 	}
 	i = -1;
 	while (++i < info->num_philos)
-		if (pthread_create(&(info->thread[i]), NULL, &routine, 
-								&info->philo[i]))
+		if (pthread_create(&(info->thread[i]), NULL, &routine,
+				&info->philo[i]))
 			return (free_space_1(info, 3.0));
 	i = 0;
 	while (i < info->num_philos)

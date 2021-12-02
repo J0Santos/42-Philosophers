@@ -6,7 +6,7 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 19:27:03 by josantos          #+#    #+#             */
-/*   Updated: 2021/12/02 18:51:55 by josantos         ###   ########.fr       */
+/*   Updated: 2021/12/02 20:16:26 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	create_forks(t_philo *philo, int *first, int *second)
 	*second = philo->id - 1 % philo->info->num_philos;
 }
 
-int	check_dead(t_philo *philo)
+void	check_dead(t_philo *philo)
 {
 	if (philo->info->time2die < current_time() - philo->last_meal)
 	{
@@ -30,9 +30,6 @@ int	check_dead(t_philo *philo)
 		}
 		pthread_mutex_unlock(&philo->info->print);
 	}
-	if (philo->info->dead == true)
-		return (1);
-	return (0);
 }
 
 void	ft_print(t_philo *philo, char *state)

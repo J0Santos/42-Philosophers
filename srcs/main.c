@@ -6,7 +6,7 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 16:36:23 by josantos          #+#    #+#             */
-/*   Updated: 2021/12/02 17:06:42 by josantos         ###   ########.fr       */
+/*   Updated: 2021/12/02 19:34:03 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(int argc, char **argv)
 {
-	t_info *info;
+	t_info	*info;
 
 	if (check_args(argc, argv))
 		return (FAILURE);
@@ -22,7 +22,7 @@ int	main(int argc, char **argv)
 	if (!info)
 		return (error_message(MALLOC_ERROR, "Malloc Error - info\n"));
 	if (init_data(info, argc, argv))
-		return(FAILURE);
+		return (FAILURE);
 	if (thread_create(info))
 		return (FAILURE);
 	finish_program(info);

@@ -6,7 +6,7 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 17:58:03 by josantos          #+#    #+#             */
-/*   Updated: 2021/12/02 14:58:51 by josantos         ###   ########.fr       */
+/*   Updated: 2021/12/02 19:33:25 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	init_mutexes(t_info *info)
 	if (pthread_mutex_init(&info->print, NULL) != 0)
 		return (free_space_1(info, 1.3));
 	if (init_forks(info))
-		return(FAILURE);
+		return (FAILURE);
 	return (SUCCESS);
 }
 

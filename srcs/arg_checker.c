@@ -6,7 +6,7 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 19:06:27 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/26 17:31:07 by josantos         ###   ########.fr       */
+/*   Updated: 2021/12/02 19:28:10 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	check_args(int argc, char **argv)
 {
-	int i;
+	int	i;
 
 	if (argc < 5)
 		return (error_message(ARGS_ERROR, "\nArguments missing!\n"));
@@ -24,11 +24,14 @@ int	check_args(int argc, char **argv)
 	while ((i + 1) <= argc)
 	{
 		if (is_digit(argv[i]) == 0)
-			return (error_message(ARGS_ERROR, "\nGiven arguments are not digits!\n"));
+			return (error_message(ARGS_ERROR,
+					"\nGiven arguments are not digits!\n"));
 		if (is_int(argv[i]) == 0)
-			return (error_message(ARGS_ERROR, "\nGiven arguments must be integers!\n"));
+			return (error_message(ARGS_ERROR,
+					"\nGiven arguments must be integers!\n"));
 		if (is_pos(argv[i]) == 0)
-			return (error_message(ARGS_ERROR, "\nArguments have to be positive!\n"));
+			return (error_message(ARGS_ERROR,
+					"\nArguments have to be positive!\n"));
 		i++;
 	}
 	return (SUCCESS);
