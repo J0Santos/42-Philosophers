@@ -6,7 +6,7 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 14:07:44 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/30 20:30:41 by josantos         ###   ########.fr       */
+/*   Updated: 2021/12/02 18:01:07 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,10 @@
 void	*one_philo_routine(void *arg)
 {
 	t_philo	*philo;
-	int		ignore;
 
 	philo = (t_philo *)arg;
 	printf("%dms\t%d %s", get_time(philo), philo->id, FORK);
-	ignore = ft_wait(philo, philo->info->time2die);
+	ft_wait(philo, philo->info->time2die);
 	printf("%dms\t%d %s", get_time(philo), philo->id, DEAD);
 	return (0);
 }
@@ -27,25 +26,26 @@ void	*one_philo_routine(void *arg)
 void	*routine(void *arg)
 {
 	t_philo	*philo;
+	int		first;
+	int		second;
 
 	philo = (t_philo *)arg;
-	while (philo->info->dead == 0)
+	create_forks(philo, &first, &second);
+	while (philo->info->dead == false)
 	{
-		if (prepare4meal(philo))
+		ft_print(philo, THINK);
+		while (philo->has_forks == false)
 		{
-			ft_print(philo, DEAD);
-			return (0);
+			if (philo->id % 2 == 0)
+				get_forks(philo, first, second);
+			else
+				get_forks(philo, second, first);
 		}
-		if (philo_eat(philo))
-		{
-			ft_print(philo, DEAD);
-			return (0);
-		}
-		if (philo_sleep(philo))
-		{
-			ft_print(philo, DEAD);
-			return (0);
-		}
+		philo_eat(philo, first, second);
+		if (philo->meal_count == philo->info->max_meals)
+			break ;
+		philo_sleep(philo);
+		printf("a%d\n", philo->id);
 	}
 	return (0);
 }

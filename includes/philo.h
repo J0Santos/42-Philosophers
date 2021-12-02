@@ -6,7 +6,7 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:02:52 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/30 20:12:17 by josantos         ###   ########.fr       */
+/*   Updated: 2021/12/02 17:19:47 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef pthread_mutex_t t_mutex;
 typedef struct s_fork
 {
 	t_mutex	mutex;
-	int		id;
+	bool	used;
 }	t_fork;
 
 typedef struct s_philo
@@ -98,21 +98,21 @@ int			thread_create(t_info *info);
 /* Routine Functions */
 
 int			one_philo(t_info *info);
-int			prepare4meal(t_philo *philo);
-int			grab_forks(t_philo *philo, t_fork *right_fork, t_fork *left_fork);
-int			philo_eat(t_philo *philo);
-int			philo_sleep(t_philo *philo);
+void		get_forks(t_philo *philo, int first, int second);
+void		philo_eat(t_philo *philo, int first, int second);
+void		philo_sleep(t_philo *philo);
 
 /*Routine Util Functions */
 
 int			check_dead(t_philo *philo);
 void		ft_print(t_philo *philo, char *state);
+void		create_forks(t_philo *philo, int *first, int *second);
 
 /* Time functions */
 
 int			get_time(t_philo *philo);
 int			current_time();
-int			ft_wait(t_philo *philo, int action);
+void		ft_wait(t_philo *philo, int action);
 
 /* Util Functions */
 

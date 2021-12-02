@@ -6,7 +6,7 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 17:58:03 by josantos          #+#    #+#             */
-/*   Updated: 2021/11/30 19:14:11 by josantos         ###   ########.fr       */
+/*   Updated: 2021/12/02 14:58:51 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	init_philo(t_info *info)
 	while (i < info->num_philos)
 	{
 		info->philo[i].id = i + 1;
-		info->philo[i].has_forks = 0;
+		info->philo[i].has_forks = false;
 		info->philo[i].meal_count = 0;
 		info->philo[i].last_meal = info->start_time;
 		info->philo[i].info = info;
@@ -40,7 +40,7 @@ int	init_forks(t_info *info)
 	i = 0;
 	while (i < info->num_philos)
 	{
-		info->fork->id = 0;
+		info->fork->used = false;
 		if (pthread_mutex_init(&info->fork[i++].mutex, NULL) != 0)
 		{
 			while (i >= 0)
