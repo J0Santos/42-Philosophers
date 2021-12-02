@@ -6,7 +6,7 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 19:27:03 by josantos          #+#    #+#             */
-/*   Updated: 2021/12/02 17:33:11 by josantos         ###   ########.fr       */
+/*   Updated: 2021/12/02 18:51:55 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	check_dead(t_philo *philo)
 		if (philo->info->dead == false)
 		{
 			philo->info->dead = true;
-			printf(""RED"%dms\t%d %s "RESET" ", get_time(philo), philo->id, DEAD);
+			printf(""RED"%dms\t%d %s"RESET"", get_time(philo), philo->id, DEAD);
 		}
 		pthread_mutex_unlock(&philo->info->print);
 	}
@@ -40,7 +40,6 @@ void	ft_print(t_philo *philo, char *state)
 	pthread_mutex_lock(&philo->info->print);
 	if (philo->info->dead == true)
 	{
-		printf("damn %d %s\n", philo->id, state);
 		pthread_mutex_unlock(&philo->info->print);
 		return ;
 	}

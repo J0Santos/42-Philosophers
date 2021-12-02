@@ -6,7 +6,7 @@
 /*   By: josantos <josantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 14:07:44 by josantos          #+#    #+#             */
-/*   Updated: 2021/12/02 18:01:07 by josantos         ###   ########.fr       */
+/*   Updated: 2021/12/02 18:48:48 by josantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	*routine(void *arg)
 	while (philo->info->dead == false)
 	{
 		ft_print(philo, THINK);
-		while (philo->has_forks == false)
+		while (philo->has_forks == false && !philo->info->dead)
 		{
 			if (philo->id % 2 == 0)
 				get_forks(philo, first, second);
@@ -45,7 +45,6 @@ void	*routine(void *arg)
 		if (philo->meal_count == philo->info->max_meals)
 			break ;
 		philo_sleep(philo);
-		printf("a%d\n", philo->id);
 	}
 	return (0);
 }
